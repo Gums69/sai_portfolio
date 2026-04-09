@@ -86,8 +86,9 @@ const ProjectShowcase = ({ project, index }) => {
                alt={project.name} 
                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                onError={(e) => {
+                 const next = e.currentTarget.nextElementSibling;
                  e.currentTarget.style.display = 'none';
-                 e.currentTarget.nextElementSibling.style.display = 'flex';
+                 if (next) next.style.display = 'flex';
                }}
              />
            ) : null}
@@ -154,7 +155,7 @@ const ProjectShowcase = ({ project, index }) => {
           transition={{ delay: 0.3 }}
           className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8"
         >
-           {project.impact.map((item, i) => (
+           {project.impact?.map((item, i) => (
               <div key={i} className="glass p-4 rounded-2xl flex items-start gap-4 hover:border-white/20 transition-colors">
                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0 border border-primary/20">
                     <span className="text-primary font-bold" style={{ color: project.color }}>{i + 1}</span>
@@ -171,7 +172,7 @@ const ProjectShowcase = ({ project, index }) => {
           transition={{ delay: 0.4 }}
           className="flex flex-wrap gap-3 pb-8 mb-8 border-b border-cardBorder"
         >
-          {project.tags.map(tag => (
+          {project.tags?.map(tag => (
             <span key={tag} className="px-4 py-2 rounded-full border border-cardBorder bg-card/50 text-white/80 text-xs font-semibold tracking-wider">
               {tag}
             </span>
@@ -199,7 +200,7 @@ const ProjectShowcase = ({ project, index }) => {
 
 const Projects = () => {
   return (
-    <section id="projects" className="py-32 max-w-[1400px] mx-auto px-6 sm:px-16 overflow-hidden">
+    <section id="projects" className="py-32 max-w-[1400px] mx-auto px-6 sm:px-16 overflow-hidden relative">
       <motion.div 
         variants={textVariant()} 
         initial="hidden" 

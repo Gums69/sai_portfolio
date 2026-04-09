@@ -108,8 +108,9 @@ const About = () => {
                   className="w-full h-full object-cover object-center relative z-10"
                   style={{ objectPosition: 'center top' }}
                   onError={(e) => {
+                    const next = e.currentTarget.nextElementSibling;
                     e.currentTarget.style.display = 'none';
-                    e.currentTarget.nextElementSibling.style.display = 'flex';
+                    if (next) next.style.display = 'flex';
                   }}
                 />
                 

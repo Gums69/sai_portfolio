@@ -39,7 +39,7 @@ const LoadingCore3D = ({ progressRef }) => {
 
   useFrame((state) => {
     const time = state.clock.getElapsedTime();
-    const progress = progressRef.current.value; // Expected 0 to 1
+    const progress = progressRef?.current?.value || 0; // Expected 0 to 1
 
     // 0-1s (0 - 0.14) -> Start
     // 1-3s (0.14 - 0.42) -> Formation
@@ -85,9 +85,13 @@ const LoadingCore3D = ({ progressRef }) => {
         
         wireframesRef.current.scale.setScalar(easeProgress * pulse);
         
-        // Reveal connections
-        wireframesRef.current.children[0].material.opacity = buildProgress * 0.4;
-        wireframesRef.current.children[1].material.opacity = buildProgress * 0.15;
+        // Reveal connections safely
+        if (wireframesRef.current.children?.[0]?.material) {
+            wireframesRef.current.children[0].material.opacity = buildProgress * 0.4;
+        }
+        if (wireframesRef.current.children?.[1]?.material) {
+            wireframesRef.current.children[1].material.opacity = buildProgress * 0.15;
+        }
         
         wireframesRef.current.rotation.y = -time * 0.2;
         wireframesRef.current.rotation.x = time * 0.3;

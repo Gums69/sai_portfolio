@@ -19,17 +19,18 @@ import Footer from './components/Footer';
 
 const App = () => {
   const [loading, setLoading] = useState(true);
+  const [showContent, setShowContent] = useState(false);
 
   return (
     <ReactLenis root options={{ lerp: 0.05, smoothWheel: true }}>
       <div className="relative z-0 bg-background overflow-hidden selection:bg-primary/30 selection:text-white cursor-none">
         <CustomCursor />
         
-        <AnimatePresence mode="wait">
+        <AnimatePresence mode="wait" onExitComplete={() => setShowContent(true)}>
           {loading && <LoadingScreen key="loading" onComplete={() => setLoading(false)} />}
         </AnimatePresence>
 
-        {!loading && (
+        {showContent && (
           <>
             <Navbar />
             <Hero />
